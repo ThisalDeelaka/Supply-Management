@@ -1,0 +1,111 @@
+.order-details-container {
+    background-color: #FEF6F3; /* Soft peach background */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .order-details-title {
+    font-size: 2rem;
+    color: #FF6F61; /* Vibrant peach-red */
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .order-info {
+    margin-bottom: 2rem;
+  }
+  
+  .order-info p {
+    font-size: 1.125rem;
+    color: #333; /* Dark neutral color */
+    margin: 0.5rem 0;
+  }
+  
+  .order-info ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-info ul li {
+    background-color: #fff;
+    padding: 0.75rem;
+    margin: 0.25rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .order-actions {
+    margin-top: 2rem;
+  }
+  
+  .status-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .status-label {
+    font-size: 1.125rem;
+    color: #333;
+    margin-right: 0.5rem;
+  }
+  
+  .status-select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .action-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .complete-button {
+    background-color: #27ae60;
+    color: white;
+  }
+  
+  .complete-button:hover {
+    background-color: #1E8C48;
+  }
+  
+  .payment-button {
+    background-color: #61A0FF;
+    color: white;
+  }
+  
+  .payment-button:hover {
+    background-color: #1E6DB8;
+  }
+  
+  .delete-button {
+    background-color: #FF6F61;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #D9534F;
+  }
+  
+  .action-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
