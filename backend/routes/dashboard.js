@@ -6,11 +6,11 @@ router.get('/dashboard-summary', async (req, res) => {
     try {
         
         const completedOrders = await Order.countDocuments({ status: 'completed' });
-        console.log('Completed Orders:', completedOrders);  // Debug log
+       
 
         
         const pendingOrders = await Order.countDocuments({ status: { $ne: 'completed' } });
-        console.log('Pending Orders:', pendingOrders);  // Debug log
+        
 
         
         const totalPaymentsData = await Order.aggregate([
@@ -18,15 +18,15 @@ router.get('/dashboard-summary', async (req, res) => {
             { $group: { _id: null, totalPayments: { $sum: '$paymentValue' } } }
         ]);
         const totalPayments = totalPaymentsData.length > 0 ? totalPaymentsData[0].totalPayments : 0;
-        console.log('Total Payments:', totalPayments);  // Debug log
+        
 
        
         const completedPayments = await Order.countDocuments({ isPaymentDone: true });
-        console.log('Completed Payments:', completedPayments);  // Debug log
+       
 
        
         const duePayments = await Order.countDocuments({ isPaymentDone: false });
-        console.log('Due Payments:', duePayments);  // Debug log
+       
 
        
         res.status(200).json({
