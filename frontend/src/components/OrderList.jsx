@@ -83,7 +83,7 @@ const OrderList = () => {
               onChange={(e) => setFilter(e.target.value)}
             >
               <option value="">All statuses</option>
-              <option value="Delivered">Delivered</option>
+              <option value="completed">completed</option>
               <option value="In Progress">In Progress</option>
               <option value="Pending">Pending</option>
             </select>

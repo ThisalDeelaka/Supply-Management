@@ -77,7 +77,7 @@ router.get('/orders/:id', async (req, res) => {
 });
 
 
-app.delete('/api/orders/:orderId', async (req, res) => {
+router.delete('/orders/:orderId', async (req, res) => {
     const { orderId } = req.params;
 
     try {
@@ -90,8 +90,8 @@ app.delete('/api/orders/:orderId', async (req, res) => {
         await order.remove();
         res.status(200).json({ message: 'Order deleted successfully.' });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to delete order.' });
-    }
+        res.status(500).json({ message: 'Failed to delete order.' });
+    }
 });
 
 
