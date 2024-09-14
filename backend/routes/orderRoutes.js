@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
+const mongoose = require('mongoose');
 
 
 router.post('/orders', async (req, res) => {
@@ -77,22 +78,34 @@ router.get('/orders/:id', async (req, res) => {
 });
 
 
+
+
 router.delete('/orders/:orderId', async (req, res) => {
     const { orderId } = req.params;
 
-    try {
-        const order = await Order.findById(orderId);
+    // Check if orderId is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+        return res.status(400).json({ message: 'Invalid order ID format.' });
+    }
 
-        if (order.status !== 'pending') {
-            return res.status(400).json({ message: 'Order cannot be deleted unless it is pending.' });
+    try {
+        // Delete the order by ID
+        const result = await Order.deleteOne({ _id: orderId });
+
+        // Check if the order was deleted
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'Order not found.' });
         }
 
-        await order.remove();
-        res.status(200).json({ message: 'Order deleted successfully.' });
+        return res.status(200).json({ message: 'Order deleted successfully.' });
+
     } catch (error) {
-        res.status(500).json({ message: 'Failed to delete order.' });
-    }
+        // Log detailed error information
+        console.error(`Error deleting order with ID ${orderId}:`, error);
+        return res.status(500).json({ message: 'Failed to delete order.', error: error.message });
+    }
 });
+
 
 
 module.exports = router;

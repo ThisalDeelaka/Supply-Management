@@ -85,14 +85,16 @@ const ViewOrder = ({ orderId, onClose }) => {
                 method: 'DELETE',
             });
             if (!response.ok) {
-                throw new Error('Failed to delete order');
+                const errorMessage = await response.text();
+                throw new Error(`Failed to delete order: ${errorMessage}`);
             }
             alert('Order deleted successfully');
-            onClose();  // Close the modal or return to the order list after deletion
+            onClose();
         } catch (error) {
             console.error('Failed to delete order:', error);
         }
     };
+    
 
     const renderProgressBar = () => {
         return (
@@ -121,7 +123,6 @@ const ViewOrder = ({ orderId, onClose }) => {
         doc.text(`Order ID: ${order._id}`, 20, 60);
         doc.text(`Supplier: ${order.supplierName}`, 20, 68);
         doc.text(`Status: ${order.status}`, 20, 76);
-        doc.text(`Date: ${new Date(order.createdAt).toLocaleDateString()}`, 20, 84);
         doc.line(20, 90, 190, 90); 
         doc.setFontSize(12);
         doc.text('Items:', 20, 100);

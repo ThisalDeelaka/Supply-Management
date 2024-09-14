@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
 
-
 router.get('/dashboard-summary', async (req, res) => {
     try {
-       
-        const completedOrders = await Order.countDocuments({ status: 'Completed' });
+        
+        const completedOrders = await Order.countDocuments({ status: 'completed' });
+        console.log('Completed Orders:', completedOrders);  // Debug log
 
         
-        const pendingOrders = await Order.countDocuments({ status: { $ne: 'Completed' } });
+        const pendingOrders = await Order.countDocuments({ status: { $ne: 'completed' } });
+        console.log('Pending Orders:', pendingOrders);  // Debug log
 
         
         const totalPaymentsData = await Order.aggregate([
@@ -17,14 +18,17 @@ router.get('/dashboard-summary', async (req, res) => {
             { $group: { _id: null, totalPayments: { $sum: '$paymentValue' } } }
         ]);
         const totalPayments = totalPaymentsData.length > 0 ? totalPaymentsData[0].totalPayments : 0;
+        console.log('Total Payments:', totalPayments);  // Debug log
 
        
         const completedPayments = await Order.countDocuments({ isPaymentDone: true });
+        console.log('Completed Payments:', completedPayments);  // Debug log
 
-        // Count due payments (where payment is not done)
+       
         const duePayments = await Order.countDocuments({ isPaymentDone: false });
+        console.log('Due Payments:', duePayments);  // Debug log
 
-        // Send the summary data as a JSON response
+       
         res.status(200).json({
             completedOrders,
             pendingOrders,
@@ -33,6 +37,7 @@ router.get('/dashboard-summary', async (req, res) => {
             duePayments
         });
     } catch (error) {
+        console.error('Error fetching dashboard summary:', error);
         res.status(500).json({ message: 'Error fetching dashboard summary', error });
     }
 });

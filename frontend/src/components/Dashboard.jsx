@@ -11,9 +11,12 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/dashboard-summary') 
+    fetch('http://localhost:5000/api/dashboard-summary')
       .then(response => response.json())
-      .then(data => setDashboardData(data))
+      .then(data => {
+        console.log('Dashboard Data:', data);  // Debug log
+        setDashboardData(data);
+      })
       .catch(error => console.error('Error fetching dashboard data:', error));
   }, []);
 
@@ -48,8 +51,6 @@ const Dashboard = () => {
             <p className="card-number">{dashboardData.duePayments}</p>
           </div>
         </div>
-
-        
       </div>
     </div>
   );
